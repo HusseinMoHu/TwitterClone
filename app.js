@@ -15,7 +15,10 @@ const server = app.listen(PORT, () =>
   console.log("Server listening on port " + PORT)
 );
 
-const io = require("socket.io")(server, { pingTimeout: 60000 });
+const io = require("socket.io")(server, {
+  allowEIO3: true,
+  pingTimeout: 60000,
+});
 
 app.set("view engine", "pug");
 app.set("views", "views");
