@@ -26,21 +26,18 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(
-  session({
-    secret: "bbq chips",
-    resave: true,
-    saveUninitialized: false,
-  })
-);
-
-app.use(
-  session({
-    secret: "bbq chips",
-    resave: true,
-    saveUninitialized: false,
-  })
-);
+// Start session
+var sess = {
+  secret: "keyboard cat",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {},
+};
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+  sess.cookie.secure = true;
+}
+app.use(session(sess)); // End session
 
 // Routes
 const loginRoute = require("./routes/loginRoutes");
