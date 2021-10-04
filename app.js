@@ -29,8 +29,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // Start session
 var sess = {
   secret: "keyboard cat",
-  resave: false,
-  saveUninitialized: true,
+  resave: true,
+  saveUninitialized: false,
   cookie: {},
 };
 if (process.env.NODE_ENV === "production") {
