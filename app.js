@@ -4,8 +4,8 @@ const middleware = require("./middleware");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("./database");
-// const session = require('express-session')
-const session = require("cookie-session");
+const session = require("express-session");
+// const session = require("cookie-session");
 
 const dotenv = require("dotenv");
 dotenv.config();
