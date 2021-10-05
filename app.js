@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const middleware = require("./middleware");
 const path = require("path");
-const bodyParser = require("body-parser");
 const mongoose = require("./database");
 const session = require("express-session");
 // const session = require("cookie-session");
@@ -23,7 +22,7 @@ const io = require("socket.io")(server, {
 app.set("view engine", "pug");
 app.set("views", "views");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Start session
