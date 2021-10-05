@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 const middleware = require("./middleware");
 const path = require("path");
-const bodyParser = require("body-parser");
 const mongoose = require("./database");
-// const session = require('express-session')
-const session = require("cookie-session");
+const session = require("express-session");
+// const session = require("cookie-session");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -26,21 +26,18 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(
-  session({
-    secret: "bbq chips",
-    resave: true,
-    saveUninitialized: false,
-  })
-);
-
-app.use(
-  session({
-    secret: "bbq chips",
-    resave: true,
-    saveUninitialized: false,
-  })
-);
+// Start session
+var sess = {
+  secret: "keyboard cat",
+  resave: true,
+  saveUninitialized: false,
+  cookie: {},
+};
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+  sess.cookie.secure = true;
+}
+app.use(session(sess)); // End session
 
 // Routes
 const loginRoute = require("./routes/loginRoutes");
